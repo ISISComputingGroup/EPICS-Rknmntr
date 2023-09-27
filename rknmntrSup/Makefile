@@ -3,8 +3,7 @@ include $(TOP)/configure/CONFIG
 #=======================================
 
 # Install .dbd and .db files
-DB += rknmntr.db
-DATA += rknmntr.proto
-
+DB += RIKEN_TEMP_CALC.db
+#TODO add sim and disable records
 #=======================================
 include $(TOP)/configure/RULES
