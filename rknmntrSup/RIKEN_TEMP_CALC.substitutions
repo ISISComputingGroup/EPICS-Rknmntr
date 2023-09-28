@@ -1,5 +1,5 @@
 file RIKEN_TEMP_CALC.template {
     pattern { MAGNET, TAP, GAIN, INITIAL_RES }
 
-    { "RQ1", "TAP01", "2", "5.5" }
+    { "RQ1", "TAP01", "2", "7.7" }
 }
