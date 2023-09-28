@@ -36,7 +36,7 @@ record(calc, "$(P)$(MAGNET):TEMPMON:$(TAP):RES") {
     field(DESC, "Resistance at magnet $(MAGNET) at $(TAP)")
     field(INPA, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT")
     field(INPB, "IN:RIKENFE:CS:SB:$(MAGNET)_CURR")
-    field(CALC, "A/B")
+    field(CALC, "(A/B)*1000")  # Convert to milliohm
     field(FLNK, "$(P)$(MAGNET):TEMPMON:$(TAP):TEMP")
 }
 
