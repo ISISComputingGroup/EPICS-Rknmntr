@@ -1,48 +1,43 @@
-# Macros:
-#
-# P               - instrument prefix
-# MAG             - magnet name
-# TAP             - tap name
-# GAIN            - gain for the tap (needed for calculations)
-# INITIAL_RES     - initial resistance (needed for the calculations)
 
-record(calc, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT:RAW") {
+# Calculations for $(MAGNET) $(TAP)
+
+record(calc, "$(P)$(MAGNET):$(TAP):VOLT:RAW") {
     field(DESC, "Raw Voltage at magnet $(MAGNET) at $(TAP)")
     field(INPA, "IN:RIKENFE:SCHNDR_01:$(MAGNET):TEMPMON:$(TAP) CP") #TODO use macro on instrument (on riken P will work)
     field(CALC, "A")
-    field(FLNK, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT:ADC")
+    field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT:ADC")
 }
 
-record(calc, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT:ADC") {
+record(calc, "$(P)$(MAGNET):$(TAP):VOLT:ADC") {
     field(DESC, "Digital Voltage at magnet $(MAGNET) at $(TAP)")
-    field(INPA, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT:RAW")
+    field(INPA, "$(P)$(MAGNET):$(TAP):VOLT:RAW")
     # The tap value is a signed 12-bit integer measured by the PLC ADC which
     # has a 10V reference. This needs to be converted back to a voltage
     field(CALC, "((A/((2**12)-1))*10)")
-    field(FLNK, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT")
+    field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT")
 }
 
-record(calc, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT") {
+record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
     field(DESC, "Actual Voltage at magnet $(MAGNET) at $(TAP)")
-    field(INPA, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT:ADC")
+    field(INPA, "$(P)$(MAGNET):$(TAP):VOLT:ADC")
     field(INPB, "$(GAIN)")
     # The PLC measures the signal conditioned voltage and so needs to be divided
     # by a gain to get the actual voltage at the magnet terminals
     field(CALC, "A/B")
-    field(FLNK, "$(P)$(MAGNET):TEMPMON:$(TAP):RES")
+    field(FLNK, "$(P)$(MAGNET):$(TAP):RES")
 }
 
-record(calc, "$(P)$(MAGNET):TEMPMON:$(TAP):RES") {
+record(calc, "$(P)$(MAGNET):$(TAP):RES") {
     field(DESC, "Resistance at magnet $(MAGNET) at $(TAP)")
-    field(INPA, "$(P)$(MAGNET):TEMPMON:$(TAP):VOLT")
+    field(INPA, "$(P)$(MAGNET):$(TAP):VOLT")
     field(INPB, "IN:RIKENFE:CS:SB:$(MAGNET)_CURR")
     field(CALC, "(A/B)*1000")  # Convert to milliohm
-    field(FLNK, "$(P)$(MAGNET):TEMPMON:$(TAP):TEMP")
+    field(FLNK, "$(P)$(MAGNET):$(TAP):TEMP")
 }
 
-record(calc, "$(P)$(MAGNET):TEMPMON:$(TAP):TEMP") {
+record(calc, "$(P)$(MAGNET):$(TAP):TEMP") {
     field(DESC, "Temperature of magnet $(MAGNET) at $(TAP)")
-    field(INPA, "$(P)$(MAGNET):TEMPMON:$(TAP):RES")
+    field(INPA, "$(P)$(MAGNET):$(TAP):RES")
     field(INPB, "$(INITIAL_RES)")
     field(CALC, "(((A/B)-1)/0.004041)+23")
 }
