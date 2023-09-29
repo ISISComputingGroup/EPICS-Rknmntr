@@ -5,6 +5,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT:RAW") {
     field(DESC, "Raw Voltage at magnet $(MAGNET) at $(TAP)")
     field(INPA, "IN:RIKENFE:SCHNDR_01:$(MAGNET):TEMPMON:$(TAP) CP") #TODO use macro on instrument (on riken P will work)
     field(CALC, "A")
+    field(PREC, "2")
     field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT:ADC")
 }
 
@@ -14,6 +15,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT:ADC") {
     # The tap value is a signed 12-bit integer measured by the PLC ADC which
     # has a 10V reference. This needs to be converted back to a voltage
     field(CALC, "((A/((2**12)-1))*10)")
+    field(PREC, "2")
     field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT")
 }
 
@@ -24,6 +26,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
     # The PLC measures the signal conditioned voltage and so needs to be divided
     # by a gain to get the actual voltage at the magnet terminals
     field(CALC, "A/B")
+    field(PREC, "2")
     field(FLNK, "$(P)$(MAGNET):$(TAP):RES")
 }
 
@@ -32,6 +35,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):RES") {
     field(INPA, "$(P)$(MAGNET):$(TAP):VOLT")
     field(INPB, "IN:RIKENFE:CS:SB:$(MAGNET)_CURR")
     field(CALC, "(A/B)*1000")  # Convert to milliohm
+    field(PREC, "2")
     field(FLNK, "$(P)$(MAGNET):$(TAP):TEMP")
 }
 
@@ -40,4 +44,5 @@ record(calc, "$(P)$(MAGNET):$(TAP):TEMP") {
     field(INPA, "$(P)$(MAGNET):$(TAP):RES")
     field(INPB, "$(INITIAL_RES)")
     field(CALC, "(((A/B)-1)/0.004041)+23")
+    field(PREC, "2")
 }
