@@ -3,7 +3,8 @@
 
 record(calc, "$(P)$(MAGNET):$(TAP):VOLT:RAW") {
     field(DESC, "Raw Voltage at magnet $(MAGNET) at $(TAP)")
-    field(INPA, "IN:RIKENFE:SCHNDR_01:$(MAGNET):TEMPMON:$(TAP) CP") #TODO use macro on instrument (on riken P will work)
+    # This below only works if P prefix is the same machine as the one running SCHNDR IOC (must be RIKENFE)
+    field(INPA, "$(P)SCHNDR_01:$(MAGNET):TEMPMON:$(TAP) CP")
     field(CALC, "A")
     field(PREC, "2")
     field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT:ADC")
@@ -38,7 +39,8 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
 record(calc, "$(P)$(MAGNET):$(TAP):RES") {
     field(DESC, "Resistance at magnet $(MAGNET) at $(TAP)")
     field(INPA, "$(P)$(MAGNET):$(TAP):VOLT")
-    field(INPB, "IN:RIKENFE:CS:SB:$(MAGNET)_CURR")
+    # This PV below references the block corresponding to magnet so it depends on correct block configuration
+    field(INPB, "$(P)CS:SB:$(MAGNET)_CURR")
     field(CALC, "(A/B)*1000")  # Convert to milliohm
     field(PREC, "2")
     field(EGU, "mOhm")
