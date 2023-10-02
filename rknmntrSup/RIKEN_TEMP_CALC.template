@@ -16,6 +16,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT:ADC") {
     # has a 10V reference. This needs to be converted back to a voltage
     field(CALC, "((A/((2**12)-1))*10)")
     field(PREC, "2")
+    field(EGU, "V")
     field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT")
 }
 
@@ -27,6 +28,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
     # by a gain to get the actual voltage at the magnet terminals
     field(CALC, "A/B")
     field(PREC, "2")
+    field(EGU, "V")
     field(FLNK, "$(P)$(MAGNET):$(TAP):RES")
 }
 
@@ -36,6 +38,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):RES") {
     field(INPB, "IN:RIKENFE:CS:SB:$(MAGNET)_CURR")
     field(CALC, "(A/B)*1000")  # Convert to milliohm
     field(PREC, "2")
+    field(EGU, "mOhm")
     field(FLNK, "$(P)$(MAGNET):$(TAP):TEMP")
 }
 
@@ -45,5 +48,6 @@ record(calc, "$(P)$(MAGNET):$(TAP):TEMP") {
     field(INPB, "$(INITIAL_RES)")
     field(CALC, "(((A/B)-1)/0.004041)+23")
     field(PREC, "2")
+    field(EGU, "C")
     info(archive, "VAL")
 }
