@@ -1,13 +1,3 @@
-record(bo, "$(P)SIM")
-{
-    field(SCAN, "Passive")
-    field(DTYP, "Soft Channel")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
-    field(VAL, "$(RECSIM=0)")
-    field(PINI, "YES")
-}
-
 record(bo, "$(P)DISABLE")
 {
     field(DESC, "Disable comms")
