@@ -7,6 +7,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT:RAW") {
     field(CALC, "A")
     field(PREC, "2")
     field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT:ADC")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(calc, "$(P)$(MAGNET):$(TAP):VOLT:ADC") {
@@ -18,6 +19,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT:ADC") {
     field(PREC, "2")
     field(EGU, "V")
     field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
@@ -30,6 +32,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
     field(PREC, "2")
     field(EGU, "V")
     field(FLNK, "$(P)$(MAGNET):$(TAP):RES")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(calc, "$(P)$(MAGNET):$(TAP):RES") {
@@ -40,6 +43,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):RES") {
     field(PREC, "2")
     field(EGU, "mOhm")
     field(FLNK, "$(P)$(MAGNET):$(TAP):TEMP")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(calc, "$(P)$(MAGNET):$(TAP):TEMP") {
@@ -50,4 +54,5 @@ record(calc, "$(P)$(MAGNET):$(TAP):TEMP") {
     field(PREC, "2")
     field(EGU, "C")
     info(archive, "VAL")
+    field(SDIS, "$(P)DISABLE")
 }
