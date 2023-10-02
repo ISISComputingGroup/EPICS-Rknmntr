@@ -45,4 +45,5 @@ record(calc, "$(P)$(MAGNET):$(TAP):TEMP") {
     field(INPB, "$(INITIAL_RES)")
     field(CALC, "(((A/B)-1)/0.004041)+23")
     field(PREC, "2")
+    info(archive, "VAL")
 }
