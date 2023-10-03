@@ -19,8 +19,13 @@ IOCS = [
 ]
 
 
-TEST_MODES = [TestModes.RECSIM, TestModes.DEVSIM]
+TEST_MODES = [TestModes.RECSIM]
 
+MAGNET_TAP_PAIRS = {
+    "RQ1": [i for i in range(1, 25)],
+    "RQ2": [i for i in range(1, 25)],
+    "RB1": [i for i in range(1, 13)],
+}
 
 class RknmntrTests(unittest.TestCase):
     """
@@ -30,5 +35,15 @@ class RknmntrTests(unittest.TestCase):
         self._lewis, self._ioc = get_running_lewis_and_ioc("Rknmntr", DEVICE_PREFIX)
         self.ca = ChannelAccess(device_prefix=DEVICE_PREFIX)
 
-    def test_that_fails(self):
-        self.fail("You haven't implemented any tests!")
+    def _get_pv_for_magnet_tap(self, magnet, tap):
+        return f"{magnet}:TAP{tap:02d}:"
+    
+    def test_GIVEN_ioc_running_THEN_all_pvs_exist(self):
+        for magnet in MAGNET_TAP_PAIRS:
+            for tap in MAGNET_TAP_PAIRS[magnet]:
+                pv_magnet_tap = self._get_pv_for_magnet_tap(magnet, tap)
+                self.ca.assert_that_pv_exists(f"{pv_magnet_tap}VOLT:RAW")
+                self.ca.assert_that_pv_exists(f"{pv_magnet_tap}VOLT:ADC")
+                self.ca.assert_that_pv_exists(f"{pv_magnet_tap}VOLT")
+                self.ca.assert_that_pv_exists(f"{pv_magnet_tap}RES")
+                self.ca.assert_that_pv_exists(f"{pv_magnet_tap}TEMP")
