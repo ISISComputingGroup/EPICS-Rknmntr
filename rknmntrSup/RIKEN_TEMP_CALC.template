@@ -3,6 +3,7 @@
 
 record(calc, "$(P)$(MAGNET):$(TAP):VOLT:RAW") {
     field(DESC, "Raw Voltage at magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
     # This below only works if P prefix is the same machine as the one running SCHNDR IOC (must be RIKENFE)
     field(INPA, "$(P)SCHNDR_01:$(MAGNET):TEMPMON:$(TAP) CP")
     field(CALC, "A")
@@ -13,6 +14,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT:RAW") {
 
 record(calc, "$(P)$(MAGNET):$(TAP):VOLT:ADC") {
     field(DESC, "Digital Voltage at magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
     field(INPA, "$(P)$(MAGNET):$(TAP):VOLT:RAW")
     # The tap value is a signed 12-bit integer measured by the PLC ADC which
     # has a 10V reference. This needs to be converted back to a voltage
@@ -25,6 +27,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT:ADC") {
 
 record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
     field(DESC, "Actual Voltage at magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
     field(INPA, "$(P)$(MAGNET):$(TAP):VOLT:ADC")
     field(INPB, "$(GAIN)")
     # The PLC measures the signal conditioned voltage and so needs to be divided
@@ -38,6 +41,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
 
 record(calc, "$(P)$(MAGNET):$(TAP):RES") {
     field(DESC, "Resistance at magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
     field(INPA, "$(P)$(MAGNET):$(TAP):VOLT")
     # This PV below references the block corresponding to magnet so it depends on correct block configuration
     field(INPB, "$(P)CS:SB:$(MAGNET)_CURR")
@@ -50,6 +54,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):RES") {
 
 record(calc, "$(P)$(MAGNET):$(TAP):TEMP") {
     field(DESC, "Temperature of magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
     field(INPA, "$(P)$(MAGNET):$(TAP):RES")
     field(INPB, "$(INITIAL_RES)")
     field(CALC, "(((A/B)-1)/0.004041)+23")
