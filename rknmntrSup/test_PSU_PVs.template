@@ -1,0 +1,6 @@
+# Dummy records for testing $(MAGNET), $(TAP)
+
+record(ai, "$(P)SCHNDR_01:$(MAGNET):TEMPMON:$(TAP)") {
+    field(DESC, "Dummy PV for testing")
+}
+

@@ -1,0 +1,4 @@
+
+record(ai, "$(P)CS:SB:$(MAGNET)_CURR") {
+    field(DESC, "Dummy PV for testing")
+}

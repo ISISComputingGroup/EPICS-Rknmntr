@@ -1,0 +1,79 @@
+file test_PSU_PVs.template {
+    pattern { MAGNET, TAP }
+
+    { "RQ1", "TAP01" }
+    { "RQ1", "TAP02" }
+    { "RQ1", "TAP03" }
+    { "RQ1", "TAP04" }
+    { "RQ1", "TAP05" }
+    { "RQ1", "TAP06" }
+    { "RQ1", "TAP07" }
+    { "RQ1", "TAP08" }
+    { "RQ1", "TAP09" }
+    { "RQ1", "TAP10" }
+    { "RQ1", "TAP11" }
+    { "RQ1", "TAP12" }
+
+    { "RQ1", "TAP13" }
+    { "RQ1", "TAP14" }
+    { "RQ1", "TAP15" }
+    { "RQ1", "TAP16" }
+    { "RQ1", "TAP17" }
+    { "RQ1", "TAP18" }
+    { "RQ1", "TAP19" }
+    { "RQ1", "TAP20" }
+    { "RQ1", "TAP21" }
+    { "RQ1", "TAP22" }
+    { "RQ1", "TAP23" }
+    { "RQ1", "TAP24" }
+
+
+    { "RQ2", "TAP01" }
+    { "RQ2", "TAP02" }
+    { "RQ2", "TAP03" }
+    { "RQ2", "TAP04" }
+    { "RQ2", "TAP05" }
+    { "RQ2", "TAP06" }
+    { "RQ2", "TAP07" }
+    { "RQ2", "TAP08" }
+    { "RQ2", "TAP09" }
+    { "RQ2", "TAP10" }
+    { "RQ2", "TAP11" }
+    { "RQ2", "TAP12" }
+
+    { "RQ2", "TAP13" }
+    { "RQ2", "TAP14" }
+    { "RQ2", "TAP15" }
+    { "RQ2", "TAP16" }
+    { "RQ2", "TAP17" }
+    { "RQ2", "TAP18" }
+    { "RQ2", "TAP19" }
+    { "RQ2", "TAP20" }
+    { "RQ2", "TAP21" }
+    { "RQ2", "TAP22" }
+    { "RQ2", "TAP23" }
+    { "RQ2", "TAP24" }
+
+    { "RQ2", "TAP25" }
+    { "RQ2", "TAP26" }
+    { "RQ2", "TAP27" }
+    { "RQ2", "TAP28" }
+    { "RQ2", "TAP29" }
+    { "RQ2", "TAP30" }
+    { "RQ2", "TAP31" }
+    { "RQ2", "TAP32" }
+
+
+    { "RB1", "TAP01" }
+    { "RB1", "TAP02" }
+    { "RB1", "TAP03" }
+    { "RB1", "TAP04" }
+    { "RB1", "TAP05" }
+    { "RB1", "TAP06" }
+    { "RB1", "TAP07" }
+    { "RB1", "TAP08" }
+    { "RB1", "TAP09" }
+    { "RB1", "TAP10" }
+    { "RB1", "TAP11" }
+    { "RB1", "TAP12" }
+}
