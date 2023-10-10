@@ -1,0 +1,65 @@
+
+# Calculations for $(MAGNET) $(TAP)
+
+record(calc, "$(P)$(MAGNET):$(TAP):VOLT:RAW") {
+    field(DESC, "Raw Voltage at magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
+    # This below only works if P prefix is the same machine as the one running SCHNDR IOC (must be RIKENFE)
+    field(INPA, "$(HOST)SCHNDR_01:$(MAGNET):TEMPMON:$(TAP) CP")
+    field(CALC, "A")
+    field(PREC, "2")
+    field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT:ADC")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(calc, "$(P)$(MAGNET):$(TAP):VOLT:ADC") {
+    field(DESC, "Digital Voltage at magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
+    field(INPA, "$(P)$(MAGNET):$(TAP):VOLT:RAW")
+    # The tap value is a signed 12-bit integer measured by the PLC ADC which
+    # has a 10V reference. This needs to be converted back to a voltage
+    field(CALC, "((A/((2**12)-1))*10)")
+    field(PREC, "2")
+    field(EGU, "V")
+    field(FLNK, "$(P)$(MAGNET):$(TAP):VOLT")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(calc, "$(P)$(MAGNET):$(TAP):VOLT") {
+    field(DESC, "Actual Voltage at magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
+    field(INPA, "$(P)$(MAGNET):$(TAP):VOLT:ADC")
+    field(INPB, "$(GAIN)")
+    # The PLC measures the signal conditioned voltage and so needs to be divided
+    # by a gain to get the actual voltage at the magnet terminals
+    field(CALC, "(B#0)?A/B:0")
+    field(PREC, "2")
+    field(EGU, "V")
+    field(FLNK, "$(P)$(MAGNET):$(TAP):RES")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(calc, "$(P)$(MAGNET):$(TAP):RES") {
+    field(DESC, "Resistance at magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
+    field(INPA, "$(P)$(MAGNET):$(TAP):VOLT")
+    # This PV below references the block corresponding to magnet so it depends on correct block configuration
+    field(INPB, "$(HOST)CS:SB:$(MAGNET)_CURR")
+    field(CALC, "(B#0)?(A/B)*1000:0")  # Convert to milliohm
+    field(PREC, "2")
+    field(EGU, "mOhm")
+    field(FLNK, "$(P)$(MAGNET):$(TAP):TEMP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(calc, "$(P)$(MAGNET):$(TAP):TEMP") {
+    field(DESC, "Temperature of magnet $(MAGNET) at $(TAP)")
+    field(VAL, 0)
+    field(INPA, "$(P)$(MAGNET):$(TAP):RES")
+    field(INPB, "$(INITIAL_RES)")
+    field(CALC, "(A#0&&B#0)?(((A/B)-1)/0.004041)+23:0")
+    field(PREC, "2")
+    field(EGU, "C")
+    info(archive, "VAL")
+    field(SDIS, "$(P)DISABLE")
+}

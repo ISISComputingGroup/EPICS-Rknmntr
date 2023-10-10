@@ -1,0 +1,7 @@
+file test_block_curr_PVs.template {
+    pattern { MAGNET }
+
+    { "RQ1" }
+    { "RQ2" }
+    { "RB1" }
+}
