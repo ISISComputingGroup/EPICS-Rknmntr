@@ -52,22 +52,20 @@ class RknmntrTests(unittest.TestCase):
                 self.ca.assert_that_pv_exists(f"{pv_magnet_tap}TEMP")
 
     @parameterized.expand(parameterized_list([
-        # Magnet, gain, volt_raw
-        ("RQ1", 10),
-        # ("RQ2", 10),
-        # ("RB1", 10),
+        "RQ1", "RQ2", "RB1"
     ]))
-    def test_WHEN_voltage_changes_THEN_values_recalculated(self, _, magnet, volt_raw):
+    def test_WHEN_raw_voltage_THEN_values_calculated(self, _, magnet):
+        # Remove IOC prefix from prefix, leaving only the host machine prefix
         self.ca.prefix = self.ca.host_prefix
 
+        # Set magnet current to a non-zero value
         pv_magnet_curr = f"CS:SB:{magnet}_CURR"
         self.ca.set_pv_value(pv_magnet_curr, 1)
 
         for tap in MAGNET_TAP_PAIRS[magnet]:
-            volt_raw = random.randrange(10, 100)
-
             # WHEN
-            # Simulate a change in tap voltage
+            # Simulate a raw voltage on each tap
+            volt_raw = random.randrange(10, 1000)
             pv = f"SCHNDR_01:{magnet}:TEMPMON:{tap}"
             self.ca.set_pv_value(pv, volt_raw)
 
@@ -88,6 +86,7 @@ class RknmntrTests(unittest.TestCase):
             expected_temp = (((expected_res / initial_res) - 1) / 0.004041) + 23
 
             # ASSERT
+            # That calculations all happen
             self.ca.assert_that_pv_is(pv_raw, volt_raw)
             self.ca.assert_that_pv_is(pv_volt_adc, expected_volt_adc)
             self.ca.assert_that_pv_is(pv_volt, expected_volt)
