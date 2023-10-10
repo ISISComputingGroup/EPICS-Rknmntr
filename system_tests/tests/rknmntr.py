@@ -38,9 +38,8 @@ class RknmntrTests(unittest.TestCase):
         self.ca = ChannelAccess(device_prefix=DEVICE_PREFIX)
 
     def _get_pv_for_magnet_tap(self, magnet, tap):
-        return f"{magnet}:TAP{tap:02d}:"
+        return f"{magnet}:{tap}:"
 
-    
     def test_GIVEN_ioc_running_THEN_all_pvs_exist(self):
         for magnet in MAGNET_TAP_PAIRS:
             for tap in MAGNET_TAP_PAIRS[magnet]:
