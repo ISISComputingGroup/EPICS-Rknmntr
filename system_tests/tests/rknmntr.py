@@ -79,6 +79,8 @@ class RknmntrTests(unittest.TestCase):
             curr = self.ca.get_pv_value(pv_magnet_curr)
             initial_res = self.ca.get_pv_value(f"{pv_temp}.B") # Retrieve initial resistance for magnet from calc record B field (loaded in there from macro)
 
+            #These calculations convert raw/analogue voltages into digital. The conversion calculations were provided by instrument scientists,
+            #and can be found here: https://github.com/ISISComputingGroup/IBEX/issues/7975
             expected_volt_adc = volt_raw / ((2**12)-1)*10
             expected_volt = expected_volt_adc / gain
             expected_res = expected_volt / curr * 1000
