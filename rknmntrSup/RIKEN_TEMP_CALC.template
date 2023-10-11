@@ -47,7 +47,7 @@ record(calc, "$(P)$(MAGNET):$(TAP):RES") {
     field(INPB, "$(HOST)CS:SB:$(MAGNET)_CURR")
     field(CALC, "(B#0)?(A/B)*1000:0")  # Convert to milliohm
     field(PREC, "2")
-    field(EGU, "mOhm")
+    field(EGU, "mohm")
     field(FLNK, "$(P)$(MAGNET):$(TAP):TEMP")
     field(SDIS, "$(P)DISABLE")
 }
