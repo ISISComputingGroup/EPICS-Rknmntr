@@ -4,7 +4,7 @@
 record(calc, "$(P)$(MAGNET):$(TAP):VOLT:RAW") {
     field(DESC, "Raw Voltage at magnet $(MAGNET) at $(TAP)")
     field(VAL, 0)
-    # This below only works if P prefix is the same machine as the one running SCHNDR IOC (must be RIKENFE)
+    # HOST macro is usually P without IOC and is used to find the SCHNDR IOC for the magnets.
     field(INPA, "$(HOST)SCHNDR_01:$(MAGNET):TEMPMON:$(TAP) CP")
     field(CALC, "A")
     field(PREC, "2")
