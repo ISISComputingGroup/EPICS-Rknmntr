@@ -28,10 +28,12 @@ MAGNET_TAP_PAIRS = {
     "RB1": [f"TAP{i:02d}" for i in range(1, 13)],
 }
 
+
 class RknmntrTests(unittest.TestCase):
     """
     Tests for the Rknmntr IOC.
     """
+
     def setUp(self):
         self._lewis, self._ioc = get_running_lewis_and_ioc("Rknmntr", DEVICE_PREFIX)
         self.ca = ChannelAccess(device_prefix=DEVICE_PREFIX)
@@ -49,9 +51,7 @@ class RknmntrTests(unittest.TestCase):
                 self.ca.assert_that_pv_exists(f"{pv_magnet_tap}RES")
                 self.ca.assert_that_pv_exists(f"{pv_magnet_tap}TEMP")
 
-    @parameterized.expand(parameterized_list([
-        "RQ1", "RQ2", "RB1"
-    ]))
+    @parameterized.expand(parameterized_list(["RQ1", "RQ2", "RB1"]))
     def test_WHEN_raw_voltage_THEN_values_calculated(self, _, magnet):
         # Remove IOC prefix from prefix, leaving only the host machine prefix
         self.ca.prefix = self.ca.host_prefix
@@ -74,13 +74,17 @@ class RknmntrTests(unittest.TestCase):
             pv_res = f"{pv_magnet_tap}RES"
             pv_temp = f"{pv_magnet_tap}TEMP"
 
-            gain = self.ca.get_pv_value(f"{pv_volt}.B") # Retrieve gain for magnet from calc record B field (loaded in there from macro)
+            gain = self.ca.get_pv_value(
+                f"{pv_volt}.B"
+            )  # Retrieve gain for magnet from calc record B field (loaded in there from macro)
             curr = self.ca.get_pv_value(pv_magnet_curr)
-            initial_res = self.ca.get_pv_value(f"{pv_temp}.B") # Retrieve initial resistance for magnet from calc record B field (loaded in there from macro)
+            initial_res = self.ca.get_pv_value(
+                f"{pv_temp}.B"
+            )  # Retrieve initial resistance for magnet from calc record B field (loaded in there from macro)
 
-            #These calculations convert raw/analogue voltages into digital. The conversion calculations were provided by instrument scientists,
-            #and can be found here: https://github.com/ISISComputingGroup/IBEX/issues/7975
-            expected_volt_adc = volt_raw / ((2**12)-1)*10
+            # These calculations convert raw/analogue voltages into digital. The conversion calculations were provided by instrument scientists,
+            # and can be found here: https://github.com/ISISComputingGroup/IBEX/issues/7975
+            expected_volt_adc = volt_raw / ((2**12) - 1) * 10
             expected_volt = expected_volt_adc / gain
             expected_res = expected_volt / curr * 1000
             expected_temp = (((expected_res / initial_res) - 1) / 0.004041) + 23

@@ -5,7 +5,6 @@ from lewis.utils.command_builder import CmdBuilder
 
 @has_log
 class RknmntrStreamInterface(StreamInterface):
-    
     in_terminator = "\r\n"
     out_terminator = "\r\n"
 

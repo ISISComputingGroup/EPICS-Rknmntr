@@ -1,3 +1,3 @@
 from .stream_interface import RknmntrStreamInterface
 
-__all__ = ['RknmntrStreamInterface']
+__all__ = ["RknmntrStreamInterface"]
