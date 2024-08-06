@@ -1,12 +1,10 @@
-from lewis.adapters.stream import StreamInterface, Cmd
-from lewis.utils.command_builder import CmdBuilder
+from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
-from lewis.utils.replies import conditional_reply
+from lewis.utils.command_builder import CmdBuilder
 
 
 @has_log
 class RknmntrStreamInterface(StreamInterface):
-    
     in_terminator = "\r\n"
     out_terminator = "\r\n"
 
